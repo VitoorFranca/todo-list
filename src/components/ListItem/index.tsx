@@ -11,9 +11,6 @@ interface Props {
 }
 
 function ListItem ({ children, value, index, ...other }: Props) {
-    console.log('Children: ' + children)
-    console.log('Value: ' + value)
-    console.log('Index: ' + index)
   
     return (
       <div
