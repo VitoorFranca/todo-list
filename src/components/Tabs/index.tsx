@@ -5,14 +5,13 @@ import Header from "../Header";
 import TabsHeader from "@mui/material/Tabs";
 import { Box, Button, Tab } from "@mui/material";
 
-
 type ListItem = {
   id: number;
   task: string;
   isDone: boolean;
 };
 
-type Props = {
+type TabsProps = {
   list: ListItem[];
   createTask: (task: string) => void;
   doneTask: (id: number) => void;
@@ -21,12 +20,18 @@ type Props = {
   hasCompleteds: boolean;
 };
 
-function Tabs({ list, deleteTask, cleanAllCompleted, hasCompleteds, createTask, doneTask }: Props) {
-
-  const [value, setValue] = React.useState(0);
+function Tabs({
+  list,
+  deleteTask,
+  cleanAllCompleted,
+  hasCompleteds,
+  createTask,
+  doneTask,
+}: TabsProps) {
+  const [currentTab, setCurrentTab] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setCurrentTab(newValue);
   };
 
   function a11yProps(index: number) {
@@ -52,7 +57,7 @@ function Tabs({ list, deleteTask, cleanAllCompleted, hasCompleteds, createTask, 
         <Header createTask={createTask} />
         <TabsHeader
           sx={{ width: "100%" }}
-          value={value}
+          value={currentTab}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
@@ -61,29 +66,35 @@ function Tabs({ list, deleteTask, cleanAllCompleted, hasCompleteds, createTask, 
           <Tab sx={{ width: TabWidth }} label="Incompleto" {...a11yProps(2)} />
         </TabsHeader>
       </Box>
-      <Box sx={{display: 'flex', flexDirection: 'column-reverse'}}>
-        { list.map(({ id, task, isDone }, i) => {
+      <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
+        {list.map(({ id, task, isDone }, i) => {
           let index: number = 0;
-          if (value) index = isDone ? 1 : 2;
+          if (currentTab) index = isDone ? 1 : 2;
 
           return (
             <TabItem
               key={id}
               isDone={isDone}
               id={id}
-              value={value}
+              value={currentTab}
               doneTask={doneTask}
               deleteTask={deleteTask}
-              index={index}>
+              index={index}
+            >
               {task}
             </TabItem>
           );
         })}
-
       </Box>
-      {(!!list.length && hasCompleteds && value != 2) && <Button sx={{ width: "100%" }} onClick={cleanAllCompleted} variant="contained">
+      {!!list.length && hasCompleteds && currentTab != 2 && (
+        <Button
+          sx={{ width: "100%" }}
+          onClick={cleanAllCompleted}
+          variant="contained"
+        >
           Limpar completos
-      </Button>}
+        </Button>
+      )}
     </Box>
   );
 }

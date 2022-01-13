@@ -36,8 +36,8 @@ function Header({ createTask }: Props) {
           justifyContent: "space-between",
         }}
       >
-        <OutlinedInput value={taskText} onChange={handleChange} sx={{ width: "80%" }} placeholder="Enter to add" />
-        <Button sx={{ width: "15%" }} onClick={handleClickCreateTask} variant="contained">
+        <OutlinedInput value={taskText} onChange={handleChange} sx={{ flex: 1, marginRight: 3 }} placeholder="Enter to add" />
+        <Button onClick={handleClickCreateTask} variant="contained">
           Add
         </Button>
       </FormControl>

@@ -65,6 +65,7 @@ function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ..
           />
 
           <Typography
+            
             sx={{ textDecoration: `${isDone ? "line-through" : "none"}` }}
           >
             {children}
