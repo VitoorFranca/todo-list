@@ -1,8 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-//let id: string = 0;
-
 type ListItem = {
     id: string,
     task: string,
@@ -11,8 +9,31 @@ type ListItem = {
   
   type List = ListItem[];
 
+  const defaultData: List = [
+      {
+          id: uuidv4(),
+          task: 'Dar danho no cachorro',
+          isDone: false
+      },
+      {
+          id: uuidv4(),
+          task: 'Lavar o carro',
+          isDone: true
+      },
+      {
+          id: uuidv4(),
+          task: 'Daily 13:30',
+          isDone: false
+      },
+      {
+          id: uuidv4(),
+          task: 'Varrer a casa',
+          isDone: true
+      }
+  ];
+
 function useTodo () {
-    const [tasks, setTasks] = React.useState<List>([]);
+    const [tasks, setTasks] = React.useState<List>(defaultData);
     const [hasCompleteds, setHasCompleteds] = React.useState<boolean>(false);
   
     function createTask(task: string) {
