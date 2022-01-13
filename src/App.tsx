@@ -13,6 +13,7 @@ type List = ListItem[];
 function App() {
 
   const [tasks, setTasks] = React.useState<List>([]);
+  const [hasCompleteds, setHasCompleteds] = React.useState<boolean>(false);
 
   function createTask(task: string) {
     const newTask = {
@@ -44,6 +45,20 @@ function App() {
     setTasks(cleanTasks);
   };
 
+  React.useEffect(() => {
+    tasks.every(({isDone}, index) => {
+      
+      if (isDone){
+        setHasCompleteds(true);
+        return false;
+      }
+      else {
+        setHasCompleteds(false);
+        return true;
+     }
+    });
+  }, [tasks]);
+
   return (
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Tabs
@@ -52,6 +67,7 @@ function App() {
         list={tasks}
         cleanAllCompleted={cleanAllCompleted}
         deleteTask={deleteTask}
+        hasCompleteds={hasCompleteds}
       />
     </Box>
   );

@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Checkbox } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { pink } from '@mui/material/colors';
 
 interface Props {
   children?: React.ReactNode;
@@ -55,6 +56,11 @@ function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ..
             checked={checked}
             onChange={handleChange}
             inputProps={{ "aria-label": "controlled" }}
+            sx={{
+              color: pink[800],
+              '&.Mui-checked': {
+                color: pink[600],
+              }}}
           />
 
           <Typography

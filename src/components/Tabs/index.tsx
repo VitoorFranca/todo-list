@@ -17,10 +17,11 @@ type Props = {
   createTask: (task: string) => void;
   doneTask: (id: number) => void;
   deleteTask: (id: number) => void;
-  cleanAllCompleted: () => void
+  cleanAllCompleted: () => void;
+  hasCompleteds: boolean;
 };
 
-function Tabs({ list, deleteTask, cleanAllCompleted, createTask, doneTask }: Props) {
+function Tabs({ list, deleteTask, cleanAllCompleted, hasCompleteds, createTask, doneTask }: Props) {
 
   const [value, setValue] = React.useState(0);
 
@@ -80,7 +81,7 @@ function Tabs({ list, deleteTask, cleanAllCompleted, createTask, doneTask }: Pro
         })}
 
       </Box>
-      {!!list.length && <Button sx={{ width: "100%" }} onClick={cleanAllCompleted} variant="contained">
+      {(!!list.length && hasCompleteds) && <Button sx={{ width: "100%" }} onClick={cleanAllCompleted} variant="contained">
           Limpar completos
       </Button>}
     </Box>
