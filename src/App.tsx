@@ -26,8 +26,23 @@ function App() {
   };
 
   function doneTask (id: number) {
-    const item = tasks[id - 1];
-    console.log(item);
+    const tasksUpdated = tasks.map(task => {
+      if(task.id === id)
+        task.isDone = !task.isDone;
+
+      return task;
+    });
+    setTasks(tasksUpdated);
+  };
+
+  function deleteTask (id: number) {
+    const tasksUpdated = tasks.filter(task => task.id != id);
+    setTasks(tasksUpdated);
+  };
+
+  function cleanAllCompleted(){
+    const cleanTasks = tasks.filter(task => !task.isDone);
+    setTasks(cleanTasks);
   };
 
   return (
@@ -36,6 +51,8 @@ function App() {
         createTask={createTask}
         doneTask={doneTask}
         list={tasks}
+        cleanAllCompleted={cleanAllCompleted}
+        deleteTask={deleteTask}
       />
     </Box>
   );

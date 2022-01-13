@@ -7,17 +7,25 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Props {
   children?: React.ReactNode;
+  id: number;
   index: number;
   value: number;
   isDone: boolean;
+  doneTask: (id: number) => void;
+  deleteTask: (id: number) => void;
 }
 
-function ListItem({ children, value, isDone, index, ...other }: Props) {
+function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ...other }: Props) {
   const [checked, setChecked] = React.useState(isDone);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
+    doneTask(id);
   };
+
+  const handleCLickOnDeletButton = () => {
+      deleteTask(id);
+  }; 
 
   return (
     <div
@@ -56,7 +64,7 @@ function ListItem({ children, value, isDone, index, ...other }: Props) {
           </Typography>
         </Box>
 
-        <DeleteIcon sx={{ color: 'GrayText', cursor: 'pointer', display: 'flex', }} />
+        <DeleteIcon onClick={handleCLickOnDeletButton} sx={{ color: 'GrayText', cursor: 'pointer', display: 'flex', }} />
         </Box>
       )}
     </div>

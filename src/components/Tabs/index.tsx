@@ -3,7 +3,7 @@ import TabItem from "../ListItem";
 import Header from "../Header";
 
 import TabsHeader from "@mui/material/Tabs";
-import { Box, Tab } from "@mui/material";
+import { Box, Button, Tab } from "@mui/material";
 
 
 type ListItem = {
@@ -13,12 +13,14 @@ type ListItem = {
 };
 
 type Props = {
-  list: ListItem[],
-  createTask: (task: string) => void,
-  doneTask: (id: number) => void
+  list: ListItem[];
+  createTask: (task: string) => void;
+  doneTask: (id: number) => void;
+  deleteTask: (id: number) => void;
+  cleanAllCompleted: () => void
 };
 
-function Tabs({ list, createTask, doneTask }: Props) {
+function Tabs({ list, deleteTask, cleanAllCompleted, createTask, doneTask }: Props) {
 
   const [value, setValue] = React.useState(0);
 
@@ -58,18 +60,29 @@ function Tabs({ list, createTask, doneTask }: Props) {
           <Tab sx={{ width: TabWidth }} label="Incompleto" {...a11yProps(2)} />
         </TabsHeader>
       </Box>
-      <Box>
-        {list.length && list.map(({ id, task, isDone }, i) => {
+      <Box sx={{display: 'flex', flexDirection: 'column-reverse'}}>
+        { list.map(({ id, task, isDone }, i) => {
           let index: number = 0;
           if (value) index = isDone ? 1 : 2;
 
           return (
-            <TabItem key={id} isDone={isDone} value={value} index={index}>
+            <TabItem
+              key={id}
+              isDone={isDone}
+              id={id}
+              value={value}
+              doneTask={doneTask}
+              deleteTask={deleteTask}
+              index={index}>
               {task}
             </TabItem>
           );
         })}
+
       </Box>
+      {!!list.length && <Button sx={{ width: "100%" }} onClick={cleanAllCompleted} variant="contained">
+          Limpar completos
+      </Button>}
     </Box>
   );
 }
