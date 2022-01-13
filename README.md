@@ -1,11 +1,17 @@
-[] Instalar o Material ui ( sempre usar )
-[] Criar header
-[] Criar um filtro
-[] Lista de tarefas
-    [] Ter um checkbox
-    [] Quando o item estiver marcado o texto precisa estar sublinhado
-    [] Excluir o item com botão
-[] Limpar todos os items já concluidos
+[x] Instalar o Material ui ( sempre usar )
+[x] Criar header
+[x] Criar um filtro
+[x] Lista de tarefas
+    [x] Ter um checkbox
+    [x] Quando o item estiver marcado o texto precisa estar sublinhado
+    [x] Excluir o item com botão
+[x] Limpar todos os items já concluidos
+
+[] instalar o uuid
+[] Iniciar com 4 tarefas: ...
+[] Quando não tiver tarefas mostrar mensagem
+[x] Criar custom hook chamado: useTodo
+[] Pegar o evento de submit
 
 ## Interfaces
 type ListaItem = {
