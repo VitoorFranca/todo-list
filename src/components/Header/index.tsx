@@ -19,6 +19,7 @@ function Header({ createTask }: Props) {
     };
 
     function handleClickCreateTask () {
+        if(!taskText.length) return;
         createTask(taskText);
         setTaskText('');
     };
