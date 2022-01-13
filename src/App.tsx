@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Tabs from './components/Tabs';
 import Box from '@mui/material/Box';
-import useLocalStorage from './hooks/useLocalStorage'
 
 type ListItem = {
   id: number,
