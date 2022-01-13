@@ -2,7 +2,7 @@ import React from "react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Checkbox } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { pink } from '@mui/material/colors';
@@ -53,23 +53,30 @@ function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ..
             alignItems: "center",
             width: '100%'
         }}>
-          <Checkbox
-            checked={checked}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-            sx={{
-              color: pink[800],
-              '&.Mui-checked': {
-                color: pink[600],
-              }}}
+
+
+
+          <FormControlLabel
+            value="left"
+            control={
+              <Checkbox
+                checked={checked}
+                onChange={handleChange}
+                inputProps={{ "aria-label": "controlled" }}
+                sx={{
+                  color: pink[800],
+                  '&.Mui-checked': {
+                    color: pink[600],
+                  }}}
+              />
+            }
+            label={
+              <Typography
+                sx={{ textDecoration: `${isDone ? "line-through" : "none"}` }}>
+              {children}
+              </Typography>
+            }
           />
-
-          <Typography
-
-            sx={{ textDecoration: `${isDone ? "line-through" : "none"}` }}
-          >
-            {children}
-          </Typography>
         </Box>
 
         <IconButton>
