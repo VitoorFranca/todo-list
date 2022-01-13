@@ -9,7 +9,7 @@
 
 [] instalar o uuid
 [] Iniciar com 4 tarefas: ...
-[] Quando não tiver tarefas mostrar mensagem
+[x] Quando não tiver tarefas mostrar mensagem
 [x] Criar custom hook chamado: useTodo
 [] Pegar o evento de submit
 
