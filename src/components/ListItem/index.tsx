@@ -3,6 +3,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Checkbox } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Props {
   children?: React.ReactNode;
@@ -29,12 +30,19 @@ function ListItem({ children, value, isDone, index, ...other }: Props) {
       {value === index && (
         <Box
           sx={{
-            p: 3,
-            display: "flex",
+            p: 2,
+            display: 'flex',
             flexDirection: "row",
             alignItems: "center",
           }}
         >
+        
+        <Box sx={{
+            display: 'flex',
+            flexDirection: "row",
+            alignItems: "center",
+            width: '100%'
+        }}>
           <Checkbox
             checked={checked}
             onChange={handleChange}
@@ -46,6 +54,9 @@ function ListItem({ children, value, isDone, index, ...other }: Props) {
           >
             {children}
           </Typography>
+        </Box>
+
+        <DeleteIcon sx={{ color: 'GrayText', cursor: 'pointer', display: 'flex', }} />
         </Box>
       )}
     </div>

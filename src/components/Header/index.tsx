@@ -6,31 +6,21 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import useLocalStorage from '../../hooks/useLocalStorage';
 
-type ListItem = {
-    id: number;
-    task: string;
-    isDone: boolean;
+type Props = {
+    createTask: (task: string) => void
 };
 
-function Header() {
+function Header({ createTask }: Props) {
     const [taskText, setTaskText] = React.useState<string>('');
-    const [tasks, setTasks] = useLocalStorage('@Tasks', []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTaskText(e.target.value)
+        setTaskText(e.target.value);
     };
 
-    function createTask(task: string) {
-        const newTask = {
-          id: tasks[tasks.length - 1] ? tasks[tasks.length - 1].id + 1 : 1,
-          task,
-          isDone: false,
-        };
-    
-        setTasks([...tasks, newTask]);
-        console.log('oh')
+    function handleClickCreateTask () {
+        createTask(taskText);
+        setTaskText('');
     };
 
   return (
@@ -46,7 +36,7 @@ function Header() {
         }}
       >
         <OutlinedInput value={taskText} onChange={handleChange} sx={{ width: "80%" }} placeholder="Enter to add" />
-        <Button sx={{ width: "15%" }} onClick={_ => createTask(taskText)} variant="contained">
+        <Button sx={{ width: "15%" }} onClick={handleClickCreateTask} variant="contained">
           Add
         </Button>
       </FormControl>

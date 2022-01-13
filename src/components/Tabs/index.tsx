@@ -13,10 +13,12 @@ type ListItem = {
 };
 
 type Props = {
-  list: ListItem[];
+  list: ListItem[],
+  createTask: (task: string) => void,
+  doneTask: (id: number) => void
 };
 
-function Tabs({ list }: Props) {
+function Tabs({ list, createTask, doneTask }: Props) {
 
   const [value, setValue] = React.useState(0);
 
@@ -44,7 +46,7 @@ function Tabs({ list }: Props) {
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Header />
+        <Header createTask={createTask} />
         <TabsHeader
           sx={{ width: "100%" }}
           value={value}
