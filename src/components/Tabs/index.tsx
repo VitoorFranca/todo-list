@@ -81,7 +81,7 @@ function Tabs({ list, deleteTask, cleanAllCompleted, hasCompleteds, createTask, 
         })}
 
       </Box>
-      {(!!list.length && hasCompleteds) && <Button sx={{ width: "100%" }} onClick={cleanAllCompleted} variant="contained">
+      {(!!list.length && hasCompleteds && value != 2) && <Button sx={{ width: "100%" }} onClick={cleanAllCompleted} variant="contained">
           Limpar completos
       </Button>}
     </Box>
