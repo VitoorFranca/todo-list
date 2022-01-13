@@ -7,8 +7,8 @@
     [x] Excluir o item com botão
 [x] Limpar todos os items já concluidos
 
-[] instalar o uuid
-[] Iniciar com 4 tarefas: ...
+[x] instalar o uuid
+[x] Iniciar com 4 tarefas: ...
 [x] Quando não tiver tarefas mostrar mensagem
 [x] Criar custom hook chamado: useTodo
 [] Pegar o evento de submit
