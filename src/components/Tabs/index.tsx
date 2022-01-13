@@ -3,7 +3,8 @@ import TabItem from "../ListItem";
 import Header from "../Header";
 
 import TabsHeader from "@mui/material/Tabs";
-import { Box, Button, Tab } from "@mui/material";
+import { Box, Button, Tab, Typography } from "@mui/material";
+import { grey } from '@mui/material/colors';
 
 type ListItem = {
   id: number;
@@ -86,15 +87,20 @@ function Tabs({
           );
         })}
       </Box>
-      {!!list.length && hasCompleteds && currentTab != 2 && (
-        <Button
-          sx={{ width: "100%" }}
-          onClick={cleanAllCompleted}
-          variant="contained"
-        >
-          Limpar completos
-        </Button>
-      )}
+      {!!list.length ? (
+        hasCompleteds &&
+        currentTab != 2 &&
+          <Button
+            sx={{ width: "100%" }}
+            onClick={cleanAllCompleted}
+            variant="contained"
+          >
+            Limpar completos
+          </Button>
+        )
+        :
+        <Typography sx={{ color: grey[800], fontFamily: 'Monospace', fontSize: 'h6.fontSize', textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}>Você não possui Tasks!</Typography>
+      }
     </Box>
   );
 }
