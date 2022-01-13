@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Checkbox } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 import { pink } from '@mui/material/colors';
 
 interface Props {
@@ -70,7 +71,10 @@ function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ..
           </Typography>
         </Box>
 
-        <DeleteIcon onClick={handleCLickOnDeletButton} sx={{ color: 'GrayText', cursor: 'pointer', display: 'flex', }} />
+        <IconButton>
+          <DeleteIcon onClick={handleCLickOnDeletButton} sx={{ color: 'GrayText', cursor: 'pointer', display: 'flex', }} />
+        </IconButton>
+        
         </Box>
       )}
     </div>
