@@ -79,8 +79,8 @@ function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ..
           />
         </Box>
 
-        <IconButton>
-          <DeleteIcon onClick={handleCLickOnDeletButton} sx={{ color: 'GrayText', cursor: 'pointer', display: 'flex', }} />
+        <IconButton onClick={handleCLickOnDeletButton}>
+          <DeleteIcon sx={{ color: 'GrayText', cursor: 'pointer', display: 'flex', }} />
         </IconButton>
         
         </Box>

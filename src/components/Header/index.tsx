@@ -5,6 +5,8 @@ import {
   FormControl,
   OutlinedInput,
   Typography,
+  FormHelperText,
+  colors
 } from "@mui/material";
 
 type Props = {
@@ -13,15 +15,24 @@ type Props = {
 
 function Header({ createTask }: Props) {
     const [taskText, setTaskText] = React.useState<string>('');
+    const [isError, setIsError] = React.useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = React.useState<string>('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTaskText(e.target.value);
     };
 
-    function handleClickCreateTask () {
-        if(!taskText.length) return;
-        createTask(taskText);
-        setTaskText('');
+    function handleSubmit(e: React.SyntheticEvent){
+      e.preventDefault();
+      if(!taskText.split(' ').join('')) {
+        setIsError(true);
+        setErrorMessage('O campo não pode estar vazio.');
+        return;
+      };
+      setIsError(false);
+      setErrorMessage('');
+      createTask(taskText);
+      setTaskText('');
     };
 
   return (
@@ -29,18 +40,26 @@ function Header({ createTask }: Props) {
       <Typography variant="h1" sx={{ fontSize: 26, marginBottom: 1 }}>
         ⚛️ React ToDo
       </Typography>
-      <FormControl
-        sx={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <OutlinedInput value={taskText} onChange={handleChange} sx={{ flex: 1, marginRight: 3 }} placeholder="Enter to add" />
-        <Button onClick={handleClickCreateTask} variant="contained">
-          Add
-        </Button>
-      </FormControl>
+
+      <form onSubmit={handleSubmit}>
+        <FormControl
+          
+          sx={{
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column', marginRight:3}}>
+            <OutlinedInput sx={{ width: '100%' }} value={taskText} onChange={handleChange}  placeholder="Enter to add" />
+            {isError && <FormHelperText sx={{ fontSize: 16, color: colors.red[500] }}>{errorMessage}</FormHelperText>}
+          </Box>
+
+          <Button type="submit" sx={{ height: 58 }} variant="contained">
+            Add
+          </Button>
+        </FormControl>
+      </form>
     </Box>
   );
 }
