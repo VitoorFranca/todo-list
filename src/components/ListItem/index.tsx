@@ -9,12 +9,12 @@ import { pink } from '@mui/material/colors';
 
 interface Props {
   children?: React.ReactNode;
-  id: number;
+  id: string;
   index: number;
   value: number;
   isDone: boolean;
-  doneTask: (id: number) => void;
-  deleteTask: (id: number) => void;
+  doneTask: (id: string) => void;
+  deleteTask: (id: string) => void;
 }
 
 function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ...other }: Props) {
@@ -65,7 +65,7 @@ function ListItem({ id, deleteTask, children, value, isDone, doneTask, index, ..
           />
 
           <Typography
-            
+
             sx={{ textDecoration: `${isDone ? "line-through" : "none"}` }}
           >
             {children}

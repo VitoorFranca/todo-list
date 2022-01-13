@@ -4,8 +4,6 @@ import Box from '@mui/material/Box';
 
 import useTodo from './hooks/useTodo';
 
-let id: number = 0;
-
 function App() {
   const { cleanAllCompleted, hasCompleteds, createTask, deleteTask, doneTask, tasks } = useTodo();
 

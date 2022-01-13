@@ -1,9 +1,10 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-let id: number = 0;
+//let id: string = 0;
 
 type ListItem = {
-    id: number,
+    id: string,
     task: string,
     isDone: boolean
   };
@@ -16,7 +17,7 @@ function useTodo () {
   
     function createTask(task: string) {
       const newTask = {
-        id: id++,
+        id: uuidv4(),
         task,
         isDone: false,
       };
@@ -24,7 +25,7 @@ function useTodo () {
       setTasks([...tasks, newTask]);
     };
   
-    function doneTask (id: number) {
+    function doneTask (id: string) {
       const tasksUpdated = tasks.map(task => {
         if(task.id === id){
           task.isDone = !task.isDone;
@@ -35,7 +36,7 @@ function useTodo () {
       setTasks(tasksUpdated);
     };
   
-    function deleteTask (id: number) {
+    function deleteTask (id: string) {
       const tasksUpdated = tasks.filter(task => task.id !== id);
       setTasks(tasksUpdated);
     };

@@ -7,7 +7,7 @@ import { Box, Button, Tab, Typography } from "@mui/material";
 import { grey } from '@mui/material/colors';
 
 type ListItem = {
-  id: number;
+  id: string;
   task: string;
   isDone: boolean;
 };
@@ -15,8 +15,8 @@ type ListItem = {
 type TabsProps = {
   list: ListItem[];
   createTask: (task: string) => void;
-  doneTask: (id: number) => void;
-  deleteTask: (id: number) => void;
+  doneTask: (id: string) => void;
+  deleteTask: (id: string) => void;
   cleanAllCompleted: () => void;
   hasCompleteds: boolean;
 };
