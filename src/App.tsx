@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Tabs from './components/Tabs';
 import Box from '@mui/material/Box';
-import TasksProvider from './context/Tasks';
-import { useTasks } from './context/Tasks';
+import useLocalStorage from './hooks/useLocalStorage'
 
 type ListItem = {
   id: number,
@@ -13,15 +12,13 @@ type ListItem = {
 type List = ListItem[];
 
 function App() {
-  const { tasks } = useTasks();
-  console.log(tasks)
+
+  const [tasks, setTasks] = React.useState([]);
 
   return (
-    <TasksProvider>
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Tabs list={tasks} />
-      </Box>
-    </TasksProvider>
+    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Tabs list={tasks} />
+    </Box>
   );
 }
 

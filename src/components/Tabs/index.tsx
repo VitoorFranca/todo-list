@@ -57,7 +57,7 @@ function Tabs({ list }: Props) {
         </TabsHeader>
       </Box>
       <Box>
-        {list && list.map(({ id, task, isDone }, i) => {
+        {list.length && list.map(({ id, task, isDone }, i) => {
           let index: number = 0;
           if (value) index = isDone ? 1 : 2;
 

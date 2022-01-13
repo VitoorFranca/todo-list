@@ -6,7 +6,7 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import { useTasks } from '../../context/Tasks';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 type ListItem = {
     id: number;
@@ -16,10 +16,21 @@ type ListItem = {
 
 function Header() {
     const [taskText, setTaskText] = React.useState<string>('');
-    const { createTask } = useTasks();
+    const [tasks, setTasks] = useLocalStorage('@Tasks', []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTaskText(e.target.value)
+    };
+
+    function createTask(task: string) {
+        const newTask = {
+          id: tasks[tasks.length - 1] ? tasks[tasks.length - 1].id + 1 : 1,
+          task,
+          isDone: false,
+        };
+    
+        setTasks([...tasks, newTask]);
+        console.log('oh')
     };
 
   return (
