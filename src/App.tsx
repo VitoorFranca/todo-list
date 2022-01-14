@@ -1,18 +1,11 @@
 import * as React from "react";
-import Tabs from "./components/Tabs";
+import Tabs from "./components/Todos";
 import Box from "@mui/material/Box";
 
 import useTodo from "./hooks/useTodo";
 
 function App() {
-  const {
-    cleanAllCompleted,
-    hasCompleteds,
-    createTask,
-    deleteTask,
-    doneTask,
-    tasks,
-  } = useTodo();
+  const { createTask } = useTodo();
 
   return (
     <Box
@@ -23,14 +16,7 @@ function App() {
         alignItems: "center",
       }}
     >
-      <Tabs
-        createTask={createTask}
-        doneTask={doneTask}
-        list={tasks}
-        cleanAllCompleted={cleanAllCompleted}
-        deleteTask={deleteTask}
-        hasCompleteds={hasCompleteds}
-      />
+      <Tabs createTask={createTask} />
     </Box>
   );
 }

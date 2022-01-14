@@ -14,9 +14,9 @@ export type UseTodoInterface = {
   cleanAllCompleted: () => void;
 };
 
-export type List = ListItemInterface[];
+export type ListInterface = ListItemInterface[];
 
-const defaultData: List = [
+const defaultData: ListInterface = [
   {
     id: uuidv4(),
     task: "Dar danho no cachorro",
@@ -40,7 +40,7 @@ const defaultData: List = [
 ];
 
 function useTodo() {
-  const [tasks, setTasks] = React.useState<List>(defaultData);
+  const [tasks, setTasks] = React.useState<ListInterface>(defaultData);
   const [hasCompleteds, setHasCompleteds] = React.useState<boolean>(true);
 
   function createTask(task: ListItemInterface["task"]) {

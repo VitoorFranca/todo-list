@@ -7,30 +7,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { pink } from "@mui/material/colors";
 
-import { ListItemInterface, UseTodoInterface } from "../../hooks/useTodo";
-import { CurrentTabInterface } from "../Tabs";
+import useTodo, { ListItemInterface } from "../../hooks/useTodo";
+import { CurrentTabInterface } from "../Todos";
 
 interface Props {
   children?: React.ReactNode;
   id: ListItemInterface["id"];
   isDone: ListItemInterface["isDone"];
   currentTab: string;
-  doneTask: UseTodoInterface["doneTask"];
-  deleteTask: UseTodoInterface["deleteTask"];
 }
 
-function ListItem({
-  id,
-  deleteTask,
-  children,
-  currentTab,
-  isDone,
-  doneTask,
-  ...other
-}: Props) {
+function ListItem({ id, children, currentTab, isDone, ...other }: Props) {
   const [checked, setChecked] = React.useState<boolean>(isDone);
   const [index, setIndex] = React.useState<CurrentTabInterface>("todos");
-  //let index: string = 'todos';
+  const { doneTask, deleteTask } = useTodo();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
