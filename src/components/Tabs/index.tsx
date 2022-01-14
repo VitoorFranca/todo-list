@@ -4,22 +4,20 @@ import Header from "../Header";
 
 import TabsHeader from "@mui/material/Tabs";
 import { Box, Button, Tab, Typography } from "@mui/material";
-import { grey } from '@mui/material/colors';
+import { grey } from "@mui/material/colors";
 
-type ListItem = {
-  id: string;
-  task: string;
-  isDone: boolean;
-};
+import { List, UseTodoInterface } from "../../hooks/useTodo";
 
 type TabsProps = {
-  list: ListItem[];
-  createTask: (task: string) => void;
-  doneTask: (id: string) => void;
-  deleteTask: (id: string) => void;
-  cleanAllCompleted: () => void;
+  list: List;
+  createTask: UseTodoInterface["createTask"];
+  doneTask: UseTodoInterface["doneTask"];
+  deleteTask: UseTodoInterface["deleteTask"];
+  cleanAllCompleted: UseTodoInterface["cleanAllCompleted"];
   hasCompleteds: boolean;
 };
+
+export type CurrentTabInterface = "todos" | "completos" | "incompletos";
 
 function Tabs({
   list,
@@ -29,9 +27,13 @@ function Tabs({
   createTask,
   doneTask,
 }: TabsProps) {
-  const [currentTab, setCurrentTab] = React.useState(0);
+  const [currentTab, setCurrentTab] =
+    React.useState<CurrentTabInterface>("todos");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (
+    event: React.SyntheticEvent,
+    newValue: CurrentTabInterface
+  ) => {
     setCurrentTab(newValue);
   };
 
@@ -62,34 +64,33 @@ function Tabs({
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab sx={{ width: TabWidth }} label="Todos" {...a11yProps(0)} />
-          <Tab sx={{ width: TabWidth }} label="Completo" {...a11yProps(1)} />
-          <Tab sx={{ width: TabWidth }} label="Incompleto" {...a11yProps(2)} />
+          <Tab sx={{ width: TabWidth }} label="Todos" value="todos" />
+          <Tab sx={{ width: TabWidth }} label="Completo" value="completos" />
+          <Tab
+            sx={{ width: TabWidth }}
+            label="Incompleto"
+            value="incompletos"
+          />
         </TabsHeader>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
-        {list.map(({ id, task, isDone }, i) => {
-          let index: number = 0;
-          if (currentTab) index = isDone ? 1 : 2;
-
+        {list.map((item) => {
           return (
             <TabItem
-              key={id}
-              isDone={isDone}
-              id={id}
-              value={currentTab}
+              key={item.id}
+              {...item}
+              currentTab={currentTab}
               doneTask={doneTask}
               deleteTask={deleteTask}
-              index={index}
             >
-              {task}
+              {item.task}
             </TabItem>
           );
         })}
       </Box>
       {!!list.length ? (
         hasCompleteds &&
-        currentTab != 2 &&
+        currentTab != "incompletos" && (
           <Button
             sx={{ width: "100%" }}
             onClick={cleanAllCompleted}
@@ -98,9 +99,20 @@ function Tabs({
             Limpar completos
           </Button>
         )
-        :
-        <Typography sx={{ color: grey[800], fontFamily: 'Monospace', fontSize: 'h6.fontSize', textAlign: 'center', marginTop: 3, fontWeight: 'bold' }}>Você não possui Tasks!</Typography>
-      }
+      ) : (
+        <Typography
+          sx={{
+            color: grey[800],
+            fontFamily: "Monospace",
+            fontSize: "h6.fontSize",
+            textAlign: "center",
+            marginTop: 3,
+            fontWeight: "bold",
+          }}
+        >
+          Você não possui Tasks!
+        </Typography>
+      )}
     </Box>
   );
 }

@@ -1,14 +1,28 @@
-import * as React from 'react';
-import Tabs from './components/Tabs';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import Tabs from "./components/Tabs";
+import Box from "@mui/material/Box";
 
-import useTodo from './hooks/useTodo';
+import useTodo from "./hooks/useTodo";
 
 function App() {
-  const { cleanAllCompleted, hasCompleteds, createTask, deleteTask, doneTask, tasks } = useTodo();
+  const {
+    cleanAllCompleted,
+    hasCompleteds,
+    createTask,
+    deleteTask,
+    doneTask,
+    tasks,
+  } = useTodo();
 
   return (
-    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Tabs
         createTask={createTask}
         doneTask={doneTask}
