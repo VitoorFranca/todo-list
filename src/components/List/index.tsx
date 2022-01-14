@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@mui/material";
 import useTodo, { ListItemInterface } from "../../hooks/useTodo";
 import { CurrentTabInterface } from "../Todos";
@@ -9,6 +10,9 @@ type Props = {
 
 export function List({ currentTab }: Props) {
   const { tasks } = useTodo();
+  React.useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
   return (
     <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
       {tasks.map((item: ListItemInterface) => {
