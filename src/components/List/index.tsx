@@ -10,9 +10,6 @@ type Props = {
 
 export function List({ currentTab }: Props) {
   const { tasks } = useTodo();
-  React.useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
   return (
     <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
       {tasks.map((item: ListItemInterface) => {
