@@ -24,7 +24,7 @@ function Header({ createTask }: Props) {
 
     function handleSubmit(e: React.SyntheticEvent){
       e.preventDefault();
-      if(!taskText.split(' ').join('')) {
+      if(!taskText.trim()) {
         setIsError(true);
         setErrorMessage('O campo não pode estar vazio.');
         return;
