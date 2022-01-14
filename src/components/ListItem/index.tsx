@@ -14,7 +14,7 @@ interface Props {
   children?: React.ReactNode;
   id: ListItemInterface["id"];
   isDone: ListItemInterface["isDone"];
-  currentTab: string;
+  currentTab: CurrentTabInterface;
 }
 
 function ListItem({ id, children, currentTab, isDone, ...other }: Props) {
