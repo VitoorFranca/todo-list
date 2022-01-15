@@ -8,9 +8,10 @@ import {
   FormHelperText,
   colors,
 } from "@mui/material";
+import { UseTodoInterface } from "../../hooks/useTodo";
 
 type Props = {
-  createTask: (task: string) => void;
+  createTask: UseTodoInterface["createTask"];
 };
 
 function Header({ createTask }: Props) {

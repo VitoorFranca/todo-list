@@ -1,25 +1,29 @@
 import React from "react";
 import TabItem from "../ListItem";
 import Header from "../Header";
+import ListItem from "../ListItem";
 
 import TabsHeader from "@mui/material/Tabs";
 import { Box, Button, Tab, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import useTodo, { ListInterface, UseTodoInterface } from "../../hooks/useTodo";
-import { List } from "../List";
-
-type TabsProps = {
-  createTask: UseTodoInterface["createTask"];
-};
+import useTodo from "../../hooks/useTodo";
+import List from "../List";
 
 export type CurrentTabInterface = "todos" | "completos" | "incompletos";
 
-function Tabs({ createTask }: TabsProps) {
+function Tabs() {
   const [currentTab, setCurrentTab] =
     React.useState<CurrentTabInterface>("todos");
 
-  const { hasCompleteds, tasks, cleanAllCompleted } = useTodo();
+  const {
+    hasCompleteds,
+    tasks,
+    cleanAllCompleted,
+    createTask,
+    deleteTask,
+    doneTask,
+  } = useTodo();
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -64,7 +68,14 @@ function Tabs({ createTask }: TabsProps) {
           />
         </TabsHeader>
       </Box>
-      <List currentTab={currentTab} />
+      {!!tasks.length && (
+        <List
+          tasks={tasks}
+          currentTab={currentTab}
+          deleteTask={deleteTask}
+          doneTask={doneTask}
+        />
+      )}
 
       {!!tasks.length ? (
         hasCompleteds &&

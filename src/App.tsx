@@ -5,8 +5,6 @@ import Box from "@mui/material/Box";
 import useTodo from "./hooks/useTodo";
 
 function App() {
-  const { createTask } = useTodo();
-
   return (
     <Box
       sx={{
@@ -16,7 +14,7 @@ function App() {
         alignItems: "center",
       }}
     >
-      <Tabs createTask={createTask} />
+      <Tabs />
     </Box>
   );
 }

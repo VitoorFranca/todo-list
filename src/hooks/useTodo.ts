@@ -44,6 +44,7 @@ function useTodo() {
   const [hasCompleteds, setHasCompleteds] = React.useState<boolean>(true);
 
   function createTask(task: ListItemInterface["task"]) {
+    console.log("o");
     const newTask = {
       id: uuidv4(),
       task,
@@ -74,8 +75,8 @@ function useTodo() {
   }
 
   React.useEffect(() => {
-    const hasCompleteds = tasks.filter(({ isDone }) => isDone === true);
-    setHasCompleteds(!!hasCompleteds.length);
+    const completeds = tasks.filter(({ isDone }) => isDone === true);
+    setHasCompleteds(!!completeds.length);
   }, [tasks]);
 
   return {
