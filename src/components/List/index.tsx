@@ -16,10 +16,6 @@ type Props = {
 };
 
 export default function List({ tasks, ...other }: Props) {
-  React.useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
       {!!tasks.length &&
