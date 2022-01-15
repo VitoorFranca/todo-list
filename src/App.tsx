@@ -1,8 +1,5 @@
-import * as React from "react";
 import Tabs from "./components/Todos";
 import Box from "@mui/material/Box";
-
-import useTodo from "./hooks/useTodo";
 
 function App() {
   return (

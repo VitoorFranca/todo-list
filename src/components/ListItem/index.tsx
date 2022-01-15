@@ -7,10 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { pink } from "@mui/material/colors";
 
-import useTodo, {
-  ListItemInterface,
-  UseTodoInterface,
-} from "../../hooks/useTodo";
+import { ListItemInterface, UseTodoInterface } from "../../hooks/useTodo";
 import { CurrentTabInterface } from "../Todos";
 
 interface Props {

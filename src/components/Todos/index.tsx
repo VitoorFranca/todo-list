@@ -1,7 +1,5 @@
 import React from "react";
-import TabItem from "../ListItem";
 import Header from "../Header";
-import ListItem from "../ListItem";
 
 import TabsHeader from "@mui/material/Tabs";
 import { Box, Button, Tab, Typography } from "@mui/material";
@@ -31,13 +29,6 @@ function Tabs() {
   ) => {
     setCurrentTab(newValue);
   };
-
-  function a11yProps(index: number) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
 
   const TabWidth = `${100 / 3}%`;
 
