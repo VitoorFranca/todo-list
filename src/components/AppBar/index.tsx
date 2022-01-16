@@ -1,4 +1,4 @@
-import { Box, Toolbar, IconButton, Switch } from "@mui/material";
+import { Box, Toolbar, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBarMui from "@mui/material/AppBar";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
