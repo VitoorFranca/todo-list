@@ -43,6 +43,7 @@ export function Todo() {
         display: "flex",
         flexDirection: "column",
         marginTop: 20,
+        padding: 3,
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

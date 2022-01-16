@@ -2,13 +2,14 @@ import React from "react";
 import { Box, Toolbar, IconButton, Switch } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBarMui from "@mui/material/AppBar";
+import { useTheme } from "../../hooks/useTheme";
 
-export function AppBar() {
-  const [auth, setAuth] = React.useState(true);
+type Props = {
+  toggleMode: () => void;
+  isDark: boolean;
+};
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
+export function AppBar({ toggleMode, isDark }: Props) {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <AppBarMui>
@@ -24,8 +25,8 @@ export function AppBar() {
           </IconButton>
           <Box>
             <Switch
-              checked={auth}
-              onChange={handleChange}
+              checked={isDark}
+              onChange={toggleMode}
               aria-label="login switch"
               color="secondary"
             />
