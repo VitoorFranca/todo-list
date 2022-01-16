@@ -1,17 +1,20 @@
 import { Todo } from "./components/Todo";
-import Box from "@mui/material/Box";
+import Papper from "@mui/material/Paper";
+import { AppBar } from "./components/AppBar";
 
 export function App() {
   return (
-    <Box
-      sx={{
+    <Papper
+      style={{
         width: "100%",
+        minHeight: "98vh",
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
         alignItems: "center",
       }}
     >
+      <AppBar />
       <Todo />
-    </Box>
+    </Papper>
   );
 }
