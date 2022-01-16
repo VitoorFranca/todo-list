@@ -1,8 +1,7 @@
-import React from "react";
 import { Box, Toolbar, IconButton, Switch } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBarMui from "@mui/material/AppBar";
-import { useTheme } from "../../hooks/useTheme";
+import { Brightness4, Brightness7 } from "@mui/icons-material";
 
 type Props = {
   toggleMode: () => void;
@@ -13,7 +12,12 @@ export function AppBar({ toggleMode, isDark }: Props) {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <AppBarMui>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <IconButton
             size="large"
             edge="start"
@@ -23,14 +27,9 @@ export function AppBar({ toggleMode, isDark }: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Box>
-            <Switch
-              checked={isDark}
-              onChange={toggleMode}
-              aria-label="login switch"
-              color="secondary"
-            />
-          </Box>
+          <IconButton sx={{ ml: 1 }} onClick={toggleMode} color="inherit">
+            {isDark ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
         </Toolbar>
       </AppBarMui>
     </Box>
