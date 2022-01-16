@@ -1,9 +1,16 @@
 import React from "react";
 import { createTheme } from "@mui/material/styles";
+import { useLocalStorage } from "./useLocalStorage";
 
 export function useTheme() {
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
-  const [isDark, setIsDark] = React.useState<boolean>(mode === "dark");
+  const [mode, setMode] = useLocalStorage<"light" | "dark">(
+    "@theme.mode",
+    "light"
+  );
+  const [isDark, setIsDark] = useLocalStorage<boolean>(
+    "@theme.isDark",
+    mode === "dark"
+  );
 
   const theme = createTheme({
     palette: {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocalStorage } from "./useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 
 export type ListItemInterface = {
@@ -40,8 +41,15 @@ const defaultData: ListInterface = [
 ];
 
 export function useTodo() {
-  const [tasks, setTasks] = React.useState<ListInterface>(defaultData);
-  const [hasCompleteds, setHasCompleteds] = React.useState<boolean>(true);
+  const [tasks, setTasks] = useLocalStorage<ListInterface>(
+    "@tasks",
+    defaultData
+  );
+  const [hasCompleteds, setHasCompleteds] = useLocalStorage<boolean>(
+    "@tasks.hasCompleteds",
+    true
+  );
+  const [localTasks, setLocalTasks] = React.useState(tasks);
 
   function createTask(task: ListItemInterface["task"]) {
     const newTask = {
@@ -50,33 +58,38 @@ export function useTodo() {
       isDone: false,
     };
 
-    setTasks([...tasks, newTask]);
+    updateData([...tasks, newTask]);
   }
 
-  function doneTask(id: ListItemInterface["id"]) {
+  async function doneTask(id: ListItemInterface["id"]) {
     const tasksUpdated = tasks.map((task) => {
       return {
         ...task,
         isDone: task.id === id ? !task.isDone : task.isDone,
       };
     });
-    setTasks(tasksUpdated);
+    updateData(tasksUpdated);
   }
 
   function deleteTask(id: ListItemInterface["id"]) {
     const tasksUpdated = tasks.filter((task) => task.id !== id);
-    setTasks(tasksUpdated);
+    updateData(tasksUpdated);
   }
 
   function cleanAllCompleted() {
     const cleanTasks = tasks.filter((task) => !task.isDone);
-    setTasks(cleanTasks);
+    updateData(cleanTasks);
+  }
+
+  function updateData(data: ListInterface) {
+    setTasks(data);
+    setLocalTasks(tasks);
   }
 
   React.useEffect(() => {
     const completeds = tasks.filter(({ isDone }) => isDone === true);
     setHasCompleteds(!!completeds.length);
-  }, [tasks]);
+  }, [localTasks]);
 
   return {
     tasks,
