@@ -3,7 +3,6 @@ import { Header } from "../Header";
 
 import TabsHeader from "@mui/material/Tabs";
 import { Paper, Box, Button, Tab, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
 
 import { useTodo } from "../../hooks/useTodo";
 import { List } from "../List";
@@ -86,7 +85,7 @@ export function Todo() {
       ) : (
         <Typography
           sx={{
-            color: grey[800],
+            color: "GrayText.primary",
             fontFamily: "Monospace",
             fontSize: "h6.fontSize",
             textAlign: "center",
