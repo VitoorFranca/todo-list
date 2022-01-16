@@ -1,19 +1,16 @@
 import React from "react";
-import Header from "../Header";
+import { Header } from "../Header";
 
 import TabsHeader from "@mui/material/Tabs";
 import { Box, Button, Tab, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import useTodo from "../../hooks/useTodo";
-import List from "../List";
+import { useTodo } from "../../hooks/useTodo";
+import { List } from "../List";
 
 export type CurrentTabInterface = "todos" | "completos" | "incompletos";
 
-function Tabs() {
-  const [currentTab, setCurrentTab] =
-    React.useState<CurrentTabInterface>("todos");
-
+export function Todo() {
   const {
     hasCompleteds,
     tasks,
@@ -22,6 +19,9 @@ function Tabs() {
     deleteTask,
     doneTask,
   } = useTodo();
+  const [currentTab, setCurrentTab] =
+    React.useState<CurrentTabInterface>("todos");
+  const [showList, setShowList] = React.useState<boolean>(!!tasks.length);
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -31,6 +31,10 @@ function Tabs() {
   };
 
   const TabWidth = `${100 / 3}%`;
+
+  React.useEffect(() => {
+    setShowList(!!tasks.length);
+  }, [tasks]);
 
   return (
     <Box
@@ -59,7 +63,7 @@ function Tabs() {
           />
         </TabsHeader>
       </Box>
-      {!!tasks.length && (
+      {showList && (
         <List
           tasks={tasks}
           currentTab={currentTab}
@@ -68,9 +72,9 @@ function Tabs() {
         />
       )}
 
-      {!!tasks.length ? (
+      {showList ? (
         hasCompleteds &&
-        currentTab != "incompletos" && (
+        currentTab !== "incompletos" && (
           <Button
             sx={{ width: "100%" }}
             onClick={cleanAllCompleted}
@@ -96,5 +100,3 @@ function Tabs() {
     </Box>
   );
 }
-
-export default Tabs;

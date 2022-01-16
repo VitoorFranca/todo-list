@@ -4,8 +4,8 @@ import {
   ListInterface,
   UseTodoInterface,
 } from "../../hooks/useTodo";
-import { CurrentTabInterface } from "../Todos";
-import ListItem from "../ListItem";
+import { CurrentTabInterface } from "../Todo";
+import { ListItem } from "../ListItem";
 
 type Props = {
   currentTab: CurrentTabInterface;
@@ -14,7 +14,7 @@ type Props = {
   tasks: ListInterface;
 };
 
-export default function List({ tasks, ...other }: Props) {
+export function List({ tasks, ...other }: Props) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
       {!!tasks.length &&

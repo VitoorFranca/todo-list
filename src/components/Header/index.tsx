@@ -14,7 +14,7 @@ type Props = {
   createTask: UseTodoInterface["createTask"];
 };
 
-function Header({ createTask }: Props) {
+export function Header({ createTask }: Props) {
   const [taskText, setTaskText] = React.useState<string>("");
   const [isError, setIsError] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>("");
@@ -79,5 +79,3 @@ function Header({ createTask }: Props) {
     </Box>
   );
 }
-
-export default Header;

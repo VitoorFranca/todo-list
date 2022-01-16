@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import { pink } from "@mui/material/colors";
 
 import { ListItemInterface, UseTodoInterface } from "../../hooks/useTodo";
-import { CurrentTabInterface } from "../Todos";
+import { CurrentTabInterface } from "../Todo";
 
 interface Props {
   children?: React.ReactNode;
@@ -19,7 +19,7 @@ interface Props {
   deleteTask: UseTodoInterface["deleteTask"];
 }
 
-function ListItem({
+export function ListItem({
   id,
   doneTask,
   deleteTask,
@@ -107,5 +107,3 @@ function ListItem({
     </div>
   );
 }
-
-export default ListItem;

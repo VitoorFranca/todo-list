@@ -1,7 +1,7 @@
-import Tabs from "./components/Todos";
+import { Todo } from "./components/Todo";
 import Box from "@mui/material/Box";
 
-function App() {
+export function App() {
   return (
     <Box
       sx={{
@@ -11,9 +11,7 @@ function App() {
         alignItems: "center",
       }}
     >
-      <Tabs />
+      <Todo />
     </Box>
   );
 }
-
-export default App;

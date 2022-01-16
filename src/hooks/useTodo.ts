@@ -39,7 +39,7 @@ const defaultData: ListInterface = [
   },
 ];
 
-function useTodo() {
+export function useTodo() {
   const [tasks, setTasks] = React.useState<ListInterface>(defaultData);
   const [hasCompleteds, setHasCompleteds] = React.useState<boolean>(true);
 
@@ -87,5 +87,3 @@ function useTodo() {
     deleteTask,
   };
 }
-
-export default useTodo;
