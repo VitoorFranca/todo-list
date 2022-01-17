@@ -5,11 +5,13 @@ import { useLocalStorage } from "./useLocalStorage";
 export function useTheme() {
   const [mode, setMode] = useLocalStorage<"light" | "dark">(
     "@theme.mode",
-    "light"
+    "light",
+    true
   );
   const [isDark, setIsDark] = useLocalStorage<boolean>(
     "@theme.isDark",
-    mode === "dark"
+    mode === "dark",
+    true
   );
 
   const theme = createTheme({

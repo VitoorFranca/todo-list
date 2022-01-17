@@ -14,7 +14,8 @@ type SetValue<T> = Dispatch<SetStateAction<T>>;
 
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T
+  initialValue: T,
+  dispatchEvent: boolean
 ): [T, SetValue<T>] {
   const readValue = (): T => {
     if (typeof window === "undefined") {
@@ -44,9 +45,12 @@ export function useLocalStorage<T>(
 
       window.localStorage.setItem(key, JSON.stringify(newValue));
 
-      setStoredValue(newValue);
+      if (dispatchEvent) {
+        window.dispatchEvent(new Event("local-storage"));
+      }
 
-      window.dispatchEvent(new Event("local-storage"));
+      setStoredValue(newValue);
+      handleStorageChange();
     } catch (error) {
       console.warn(`Error setting localStorage key “${key}”:`, error);
     }
