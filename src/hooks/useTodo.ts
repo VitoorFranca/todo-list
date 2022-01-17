@@ -62,7 +62,7 @@ export function useTodo() {
     setTasks([...tasks, newTask]);
   }
 
-  async function doneTask(id: ListItemInterface["id"]) {
+  function doneTask(id: ListItemInterface["id"]) {
     const tasksUpdated = tasks.map((task) => {
       return {
         ...task,
