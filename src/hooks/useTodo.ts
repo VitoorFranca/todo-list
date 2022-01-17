@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocalStorage } from "./useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 
 export type ListItemInterface = {
@@ -40,8 +41,16 @@ const defaultData: ListInterface = [
 ];
 
 export function useTodo() {
-  const [tasks, setTasks] = React.useState<ListInterface>(defaultData);
-  const [hasCompleteds, setHasCompleteds] = React.useState<boolean>(true);
+  const [tasks, setTasks] = useLocalStorage<ListInterface>(
+    "@tasks",
+    defaultData,
+    true
+  );
+  const [hasCompleteds, setHasCompleteds] = useLocalStorage<boolean>(
+    "@tasks.hasCompleteds",
+    true,
+    false
+  );
 
   function createTask(task: ListItemInterface["task"]) {
     const newTask = {
@@ -53,7 +62,7 @@ export function useTodo() {
     setTasks([...tasks, newTask]);
   }
 
-  function doneTask(id: ListItemInterface["id"]) {
+  async function doneTask(id: ListItemInterface["id"]) {
     const tasksUpdated = tasks.map((task) => {
       return {
         ...task,

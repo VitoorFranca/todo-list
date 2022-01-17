@@ -2,8 +2,7 @@ import React from "react";
 import { Header } from "../Header";
 
 import TabsHeader from "@mui/material/Tabs";
-import { Box, Button, Tab, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { Paper, Box, Button, Tab, Typography } from "@mui/material";
 
 import { useTodo } from "../../hooks/useTodo";
 import { List } from "../List";
@@ -37,13 +36,13 @@ export function Todo() {
   }, [tasks]);
 
   return (
-    <Box
+    <Paper
       sx={{
-        width: "40%",
-        border: 1,
-        borderRadius: 3,
-        padding: 2,
-        borderColor: "divider",
+        width: "50%",
+        display: "flex",
+        flexDirection: "column",
+        marginTop: 20,
+        padding: 3,
       }}
     >
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -86,7 +85,7 @@ export function Todo() {
       ) : (
         <Typography
           sx={{
-            color: grey[800],
+            color: "GrayText.primary",
             fontFamily: "Monospace",
             fontSize: "h6.fontSize",
             textAlign: "center",
@@ -97,6 +96,6 @@ export function Todo() {
           Você não possui Tasks!
         </Typography>
       )}
-    </Box>
+    </Paper>
   );
 }
