@@ -41,11 +41,7 @@ const defaultData: ListInterface = [
 ];
 
 export function useTodo() {
-  const [tasks, setTasks] = useLocalStorage<ListInterface>(
-    "@tasks",
-    defaultData,
-    true
-  );
+  const [tasks, setTasks] = React.useState<ListInterface>(defaultData);
   const [hasCompleteds, setHasCompleteds] = useLocalStorage<boolean>(
     "@tasks.hasCompleteds",
     true,
