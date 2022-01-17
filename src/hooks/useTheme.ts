@@ -1,4 +1,3 @@
-import React from "react";
 import { createTheme } from "@mui/material/styles";
 import { useLocalStorage } from "./useLocalStorage";
 
@@ -22,11 +21,8 @@ export function useTheme() {
 
   const toggleMode = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-  };
-
-  React.useEffect(() => {
     setIsDark(mode === "dark");
-  }, [mode]);
+  };
 
   return { mode, isDark, toggleMode, theme };
 }
