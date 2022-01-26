@@ -4,12 +4,12 @@ import { v4 as uuidv4 } from "uuid";
 
 export type ListItemInterface = {
   id: string;
-  task: string;
-  isDone: boolean;
+  title: string;
+  completed: boolean;
 };
 
 export type UseTodoInterface = {
-  createTask: (task: string) => void;
+  createTask: (title: string) => void;
   doneTask: (id: string) => void;
   deleteTask: (id: string) => void;
   cleanAllCompleted: () => void;
@@ -17,74 +17,57 @@ export type UseTodoInterface = {
 
 export type ListInterface = ListItemInterface[];
 
-const defaultData: ListInterface = [
-  {
-    id: uuidv4(),
-    task: "Dar danho no cachorro",
-    isDone: false,
-  },
-  {
-    id: uuidv4(),
-    task: "Lavar o carro",
-    isDone: true,
-  },
-  {
-    id: uuidv4(),
-    task: "Daily 13:30",
-    isDone: false,
-  },
-  {
-    id: uuidv4(),
-    task: "Varrer a casa",
-    isDone: true,
-  },
-];
-
 export function useTodo() {
-  const [tasks, setTasks] = React.useState<ListInterface>(defaultData);
+  const [todos, setTodos] = React.useState<ListInterface>([]);
   const [hasCompleteds, setHasCompleteds] = useLocalStorage<boolean>(
-    "@tasks.hasCompleteds",
+    "@todos.hasCompleteds",
     true,
     false
   );
 
-  function createTask(task: ListItemInterface["task"]) {
+  React.useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((res) => res.json())
+      .then((data) => setTodos(data));
+  }, []);
+
+  function createTask(title: ListItemInterface["title"]) {
     const newTask = {
       id: uuidv4(),
-      task,
-      isDone: false,
+      title,
+      completed: false,
     };
 
-    setTasks([...tasks, newTask]);
+    setTodos([...todos, newTask]);
   }
 
   function doneTask(id: ListItemInterface["id"]) {
-    const tasksUpdated = tasks.map((task) => {
+    const todoUpdated = todos.map((todo) => {
       return {
-        ...task,
-        isDone: task.id === id ? !task.isDone : task.isDone,
+        ...todo,
+        completed: todo.id === id ? !todo.completed : todo.completed,
       };
     });
-    setTasks(tasksUpdated);
+    setTodos(todoUpdated);
   }
 
   function deleteTask(id: ListItemInterface["id"]) {
-    const tasksUpdated = tasks.filter((task) => task.id !== id);
-    setTasks(tasksUpdated);
+    const todosUpdated = todos.filter((task) => task.id !== id);
+    setTodos(todosUpdated);
   }
 
   function cleanAllCompleted() {
-    const cleanTasks = tasks.filter((task) => !task.isDone);
-    setTasks(cleanTasks);
+    const cleanTasks = todos.filter((todo) => !todo.completed);
+    setTodos(cleanTasks);
   }
 
   React.useEffect(() => {
-    const completeds = tasks.filter(({ isDone }) => isDone === true);
+    const completeds = todos.filter(({ completed }) => completed === true);
     setHasCompleteds(!!completeds.length);
-  }, [tasks]);
+  }, [todos]);
 
   return {
-    tasks,
+    todos,
     hasCompleteds,
     createTask,
     doneTask,

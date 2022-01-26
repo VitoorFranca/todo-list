@@ -13,7 +13,7 @@ import { CurrentTabInterface } from "../Todo";
 interface Props {
   children?: React.ReactNode;
   id: ListItemInterface["id"];
-  isDone: ListItemInterface["isDone"];
+  completed: ListItemInterface["completed"];
   currentTab: CurrentTabInterface;
   doneTask: UseTodoInterface["doneTask"];
   deleteTask: UseTodoInterface["deleteTask"];
@@ -25,10 +25,10 @@ export function ListItem({
   deleteTask,
   children,
   currentTab,
-  isDone,
+  completed,
   ...other
 }: Props) {
-  const [checked, setChecked] = React.useState<boolean>(isDone);
+  const [checked, setChecked] = React.useState<boolean>(completed);
   const [index, setIndex] = React.useState<CurrentTabInterface>("todos");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ export function ListItem({
 
   React.useEffect(() => {
     if (currentTab !== "todos") {
-      return setIndex(isDone ? "completos" : "incompletos");
+      return setIndex(completed ? "completos" : "incompletos");
     }
 
     setIndex("todos");
@@ -89,7 +89,9 @@ export function ListItem({
               }
               label={
                 <Typography
-                  sx={{ textDecoration: `${isDone ? "line-through" : "none"}` }}
+                  sx={{
+                    textDecoration: `${completed ? "line-through" : "none"}`,
+                  }}
                 >
                   {children}
                 </Typography>

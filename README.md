@@ -2,9 +2,9 @@
 [x] Criar header
 [x] Criar um filtro
 [x] Lista de tarefas
-    [x] Ter um checkbox
-    [x] Quando o item estiver marcado o texto precisa estar sublinhado
-    [x] Excluir o item com botão
+[x] Ter um checkbox
+[x] Quando o item estiver marcado o texto precisa estar sublinhado
+[x] Excluir o item com botão
 [x] Limpar todos os items já concluidos
 
 [x] instalar o uuid
@@ -14,10 +14,11 @@
 [] Pegar o evento de submit
 
 ## Interfaces
+
 type ListaItem = {
-    id: number,
-    task: string,
-    isDone: boolean
+id: number,
+task: string,
+isDone: boolean
 };
 
 type Lista = ListaItem[];

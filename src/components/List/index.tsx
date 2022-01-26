@@ -11,17 +11,17 @@ type Props = {
   currentTab: CurrentTabInterface;
   doneTask: UseTodoInterface["doneTask"];
   deleteTask: UseTodoInterface["deleteTask"];
-  tasks: ListInterface;
+  todos: ListInterface;
 };
 
-export function List({ tasks, ...other }: Props) {
+export function List({ todos, ...other }: Props) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column-reverse" }}>
-      {!!tasks.length &&
-        tasks.map((item: ListItemInterface) => {
+      {!!todos.length &&
+        todos.map((item: ListItemInterface) => {
           return (
             <ListItem key={item.id} {...item} {...other}>
-              {item.task}
+              {item.title}
             </ListItem>
           );
         })}

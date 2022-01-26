@@ -12,7 +12,7 @@ export type CurrentTabInterface = "todos" | "completos" | "incompletos";
 export function Todo() {
   const {
     hasCompleteds,
-    tasks,
+    todos,
     cleanAllCompleted,
     createTask,
     deleteTask,
@@ -20,7 +20,7 @@ export function Todo() {
   } = useTodo();
   const [currentTab, setCurrentTab] =
     React.useState<CurrentTabInterface>("todos");
-  const [showList, setShowList] = React.useState<boolean>(!!tasks.length);
+  const [showList, setShowList] = React.useState<boolean>(!!todos.length);
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -32,8 +32,8 @@ export function Todo() {
   const TabWidth = `${100 / 3}%`;
 
   React.useEffect(() => {
-    setShowList(!!tasks.length);
-  }, [tasks]);
+    setShowList(!!todos.length);
+  }, [todos]);
 
   return (
     <Paper
@@ -64,7 +64,7 @@ export function Todo() {
       </Box>
       {showList && (
         <List
-          tasks={tasks}
+          todos={todos}
           currentTab={currentTab}
           deleteTask={deleteTask}
           doneTask={doneTask}
