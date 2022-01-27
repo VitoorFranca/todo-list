@@ -11,7 +11,7 @@
 [x] Iniciar com 4 tarefas: ...
 [x] Quando não tiver tarefas mostrar mensagem
 [x] Criar custom hook chamado: useTodo
-[] Pegar o evento de submit
+[X] Pegar o evento de submit
 
 ## Interfaces
 
@@ -25,6 +25,6 @@ type Lista = ListaItem[];
 
 [] - colocar ordem
 [] - Criar função getTodos
-    [] - Usar async await
+[] - Usar async await
 [] - Função criar todo fazendo POST na API
 [] - Catch error request
