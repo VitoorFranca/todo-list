@@ -25,10 +25,20 @@ export function useTodo() {
     false
   );
 
+  // https://jsonplaceholder.typicode.com/todos?_sort=id&_order=desc
+  // https://jsonplaceholder.typicode.com/todos?_page=3&_limit=5
+
+  async function getTodos() {
+    const res = await fetch(
+      "https://jsonplaceholder.typicode.com/todos?_page=3&_limit=4_sort=id&_order=desc"
+    );
+    return res.json();
+  }
+
   React.useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos?_page=3&_limit=5")
-      .then((res) => res.json())
-      .then((data) => setTodos(data));
+    (async () => {
+      setTodos(await getTodos());
+    })();
   }, []);
 
   function createTask(title: ListItemInterface["title"]) {
