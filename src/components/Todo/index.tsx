@@ -2,7 +2,14 @@ import React from "react";
 import { Header } from "../Header";
 
 import TabsHeader from "@mui/material/Tabs";
-import { Paper, Box, Button, Tab, Typography } from "@mui/material";
+import {
+  Paper,
+  Box,
+  Button,
+  Tab,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 
 import { useTodo } from "../../hooks/useTodo";
 import { List } from "../List";
@@ -17,6 +24,9 @@ export function Todo() {
     createTask,
     deleteTask,
     doneTask,
+    errorMessage,
+    isError,
+    isLoadingTodos,
   } = useTodo();
   const [currentTab, setCurrentTab] =
     React.useState<CurrentTabInterface>("todos");
@@ -62,7 +72,13 @@ export function Todo() {
           />
         </TabsHeader>
       </Box>
-      {showList && (
+      {isLoadingTodos && (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
+      )}
+
+      {showList && !isLoadingTodos && (
         <List
           todos={todos}
           currentTab={currentTab}
@@ -71,7 +87,7 @@ export function Todo() {
         />
       )}
 
-      {showList ? (
+      {showList && !isLoadingTodos ? (
         hasCompleteds &&
         currentTab !== "incompletos" && (
           <Button
@@ -93,7 +109,7 @@ export function Todo() {
             fontWeight: "bold",
           }}
         >
-          Você não possui Tasks!
+          {errorMessage}
         </Typography>
       )}
     </Paper>

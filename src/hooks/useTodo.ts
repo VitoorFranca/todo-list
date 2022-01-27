@@ -19,6 +19,11 @@ export type ListInterface = ListItemInterface[];
 
 export function useTodo() {
   const [todos, setTodos] = React.useState<ListInterface>([]);
+  const [isLoadingTodos, setIsLoadingTodos] = React.useState<boolean>(true);
+
+  const [isError, setIsError] = React.useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = React.useState<string>("");
+
   const [hasCompleteds, setHasCompleteds] = useLocalStorage<boolean>(
     "@todos.hasCompleteds",
     true,
@@ -26,26 +31,56 @@ export function useTodo() {
   );
 
   async function getTodos() {
-    const res = await fetch(
-      "https://jsonplaceholder.typicode.com/todos?_sort=id&_order=desc&_limit=4"
-    );
-    return res.json();
+    setIsLoadingTodos(true);
+    try {
+      const res = await fetch(
+        "https://jsonplaceholder.typicode.com/todos?_sort=id&_order=desc&_limit=4"
+      );
+      const todos = await res.json();
+
+      setTodos(todos);
+      setIsError(false);
+      setIsLoadingTodos(false);
+
+      return todos;
+    } catch (error: any) {
+      setIsError(true);
+      setErrorMessage(error.message);
+      setIsLoadingTodos(false);
+    }
   }
 
   React.useEffect(() => {
-    (async () => {
-      setTodos(await getTodos());
-    })();
+    getTodos();
   }, []);
 
-  function createTask(title: ListItemInterface["title"]) {
-    const newTask = {
-      id: uuidv4(),
-      title,
-      completed: false,
-    };
+  async function createTask(title: ListItemInterface["title"]) {
+    setIsLoadingTodos(true);
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos", {
+        method: "POST",
+        body: JSON.stringify({
+          title: title,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const newTodo = await res.json();
+      setTodos([
+        ...todos,
+        {
+          ...newTodo,
+          id: uuidv4(),
+        },
+      ]);
 
-    setTodos([...todos, newTask]);
+      setIsError(false);
+    } catch (error: any) {
+      setIsError(true);
+      setErrorMessage(error.message);
+    }
+    setIsLoadingTodos(false);
   }
 
   function doneTask(id: ListItemInterface["id"]) {
@@ -74,6 +109,10 @@ export function useTodo() {
   }, [todos]);
 
   return {
+    setErrorMessage,
+    isLoadingTodos,
+    isError,
+    errorMessage,
     todos,
     hasCompleteds,
     createTask,
