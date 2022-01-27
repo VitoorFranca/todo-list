@@ -26,7 +26,7 @@ export function useTodo() {
   );
 
   React.useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch("https://jsonplaceholder.typicode.com/todos?_page=3&_limit=5")
       .then((res) => res.json())
       .then((data) => setTodos(data));
   }, []);
