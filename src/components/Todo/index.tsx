@@ -41,7 +41,7 @@ export function Todo() {
         width: "50%",
         display: "flex",
         flexDirection: "column",
-        marginTop: 20,
+        marginTop: 10,
         padding: 3,
       }}
     >
