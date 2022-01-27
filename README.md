@@ -25,6 +25,6 @@ type Lista = ListaItem[];
 
 [x] - colocar ordem
 [x] - Criar função getTodos
-[] - Usar async await
+[x] - Usar async await
 [] - Função criar todo fazendo POST na API
 [] - Catch error request
