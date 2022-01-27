@@ -25,12 +25,9 @@ export function useTodo() {
     false
   );
 
-  // https://jsonplaceholder.typicode.com/todos?_sort=id&_order=desc
-  // https://jsonplaceholder.typicode.com/todos?_page=3&_limit=5
-
   async function getTodos() {
     const res = await fetch(
-      "https://jsonplaceholder.typicode.com/todos?_page=3&_limit=4_sort=id&_order=desc"
+      "https://jsonplaceholder.typicode.com/todos?_sort=id&_order=desc&_limit=4"
     );
     return res.json();
   }
