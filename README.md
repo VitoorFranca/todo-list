@@ -24,7 +24,7 @@ isDone: boolean
 type Lista = ListaItem[];
 
 [x] - colocar ordem
-[] - Criar função getTodos
+[x] - Criar função getTodos
 [] - Usar async await
 [] - Função criar todo fazendo POST na API
 [] - Catch error request
