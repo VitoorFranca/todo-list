@@ -1,28 +1,30 @@
 import React from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import { getTodos, createTodo, deleteTodo, updateTodo } from "../services/todo";
 import { v4 as uuidv4 } from "uuid";
 
 export type ListItemInterface = {
-  id: string;
+  id: number;
   title: string;
   completed: boolean;
 };
 
 export type UseTodoInterface = {
-  createTask: (title: string) => void;
-  doneTask: (id: string) => void;
-  deleteTask: (id: string) => void;
+  createTask: (title: ListItemInterface["title"]) => void;
+  doneTask: (id: ListItemInterface["id"]) => void;
+  deleteTask: (id: ListItemInterface["id"]) => void;
   cleanAllCompleted: () => void;
 };
+
+export type Status = "loading" | "error" | "completed";
 
 export type ListInterface = ListItemInterface[];
 
 export function useTodo() {
+  const [status, setStatus] = React.useState<Status>("loading");
   const [todos, setTodos] = React.useState<ListInterface>([]);
-  const [isLoadingTodos, setIsLoadingTodos] = React.useState<boolean>(true);
 
-  const [isError, setIsError] = React.useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = React.useState<string>("");
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const [hasCompleteds, setHasCompleteds] = useLocalStorage<boolean>(
     "@todos.hasCompleteds",
@@ -30,72 +32,56 @@ export function useTodo() {
     false
   );
 
-  async function getTodos() {
-    setIsLoadingTodos(true);
-    try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}?_sort=id&_order=desc&_limit=4`
-      );
-      const todos = await res.json();
-
-      setTodos(todos);
-      setIsError(false);
-      setIsLoadingTodos(false);
-
-      return todos;
-    } catch (error: any) {
-      setIsError(true);
-      setErrorMessage(error.message);
-      setIsLoadingTodos(false);
-    }
-  }
-
   React.useEffect(() => {
-    getTodos();
+    getTodos()
+      .then((todos) => {
+        setTodos(todos);
+        setStatus("completed");
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+        setStatus("error");
+      });
   }, []);
 
   async function createTask(title: ListItemInterface["title"]) {
-    setIsLoadingTodos(true);
+    setStatus("loading");
+
     try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/todos", {
-        method: "POST",
-        body: JSON.stringify({
-          title: title,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      const newTodo = await res.json();
-      setTodos([
-        ...todos,
-        {
-          ...newTodo,
-          id: uuidv4(),
-        },
-      ]);
-
-      setIsError(false);
-    } catch (error: any) {
-      setIsError(true);
-      setErrorMessage(error.message);
+      await createTodo(title);
+      setTodos(await getTodos());
+      setStatus("completed");
+    } catch (err: any) {
+      setErrorMessage(err.message);
+      setStatus("error");
     }
-    setIsLoadingTodos(false);
   }
 
-  function doneTask(id: ListItemInterface["id"]) {
-    const todoUpdated = todos.map((todo) => {
-      return {
-        ...todo,
-        completed: todo.id === id ? !todo.completed : todo.completed,
-      };
-    });
-    setTodos(todoUpdated);
+  async function doneTask(
+    id: ListItemInterface["id"],
+    value: ListItemInterface["completed"]
+  ) {
+    try {
+      await updateTodo(id, { completed: !value });
+      setTodos(await getTodos());
+      setStatus("completed");
+    } catch (err: any) {
+      setErrorMessage(err.message);
+      setStatus("error");
+    }
   }
 
-  function deleteTask(id: ListItemInterface["id"]) {
-    const todosUpdated = todos.filter((task) => task.id !== id);
-    setTodos(todosUpdated);
+  async function deleteTask(id: ListItemInterface["id"]) {
+    setStatus("loading");
+
+    try {
+      await deleteTodo(id);
+      setTodos(await getTodos());
+      setStatus("completed");
+    } catch (err: any) {
+      setErrorMessage(err.message);
+      setStatus("error");
+    }
   }
 
   function cleanAllCompleted() {
@@ -109,9 +95,10 @@ export function useTodo() {
   }, [todos]);
 
   return {
+    status,
     setErrorMessage,
-    isLoadingTodos,
-    isError,
+    isLoadingTodos: status === "loading",
+    isError: status === "error",
     errorMessage,
     todos,
     hasCompleteds,
