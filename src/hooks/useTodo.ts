@@ -34,7 +34,7 @@ export function useTodo() {
     setIsLoadingTodos(true);
     try {
       const res = await fetch(
-        "https://jsonplaceholder.typicode.com/todos?_sort=id&_order=desc&_limit=4"
+        `${process.env.REACT_APP_API_URL}?_sort=id&_order=desc&_limit=4`
       );
       const todos = await res.json();
 
