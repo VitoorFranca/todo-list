@@ -33,7 +33,7 @@ export function ListItem({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    doneTask(id);
+    doneTask(id, completed);
   };
 
   const handleCLickOnDeletButton = () => {
