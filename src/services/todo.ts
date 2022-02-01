@@ -11,8 +11,8 @@ export async function createTodo(title: ListItemInterface["title"]) {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
 }
 
@@ -23,8 +23,8 @@ export async function getTodos<ListInterface>() {
     );
     const todos = await res.json();
     return todos;
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
 }
 export async function deleteTodo(id: ListItemInterface["id"]) {
@@ -35,8 +35,8 @@ export async function deleteTodo(id: ListItemInterface["id"]) {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-  } catch (err) {
-    throw new Error("Error" + err);
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
 }
 export async function updateTodo(
@@ -51,7 +51,7 @@ export async function updateTodo(
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
 }
