@@ -11,7 +11,10 @@ export type ListItemInterface = {
 
 export type UseTodoInterface = {
   createTask: (title: ListItemInterface["title"]) => void;
-  doneTask: (id: ListItemInterface["id"]) => void;
+  doneTask: (
+    id: ListItemInterface["id"],
+    value: ListItemInterface["completed"]
+  ) => void;
   deleteTask: (id: ListItemInterface["id"]) => void;
   cleanAllCompleted: () => void;
 };
@@ -51,8 +54,8 @@ export function useTodo() {
       await createTodo(title);
       setTodos(await getTodos());
       setStatus("completed");
-    } catch (err: any) {
-      setErrorMessage(err.message);
+    } catch (err) {
+      setErrorMessage((err as Error).message);
       setStatus("error");
     }
   }
@@ -65,8 +68,8 @@ export function useTodo() {
       await updateTodo(id, { completed: !value });
       setTodos(await getTodos());
       setStatus("completed");
-    } catch (err: any) {
-      setErrorMessage(err.message);
+    } catch (err) {
+      setErrorMessage((err as Error).message);
       setStatus("error");
     }
   }
@@ -78,19 +81,30 @@ export function useTodo() {
       await deleteTodo(id);
       setTodos(await getTodos());
       setStatus("completed");
-    } catch (err: any) {
-      setErrorMessage(err.message);
+    } catch (err) {
+      setErrorMessage((err as Error).message);
       setStatus("error");
     }
   }
 
   function cleanAllCompleted() {
-    const cleanTasks = todos.filter((todo) => !todo.completed);
-    setTodos(cleanTasks);
+    const completedTasks = todos
+      .filter((todo) => todo.completed)
+      .map(({ id }) => deleteTodo(id));
+
+    Promise.all(completedTasks)
+      .then(async () => {
+        setTodos(await getTodos());
+        setStatus("completed");
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+        setStatus("error");
+      });
   }
 
   React.useEffect(() => {
-    const completeds = todos.filter(({ completed }) => completed === true);
+    const completeds = todos.filter(({ completed }) => completed);
     setHasCompleteds(!!completeds.length);
   }, [todos]);
 
