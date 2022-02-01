@@ -10,14 +10,14 @@ import { pink } from "@mui/material/colors";
 import { ListItemInterface, UseTodoInterface } from "../../hooks/useTodo";
 import { CurrentTabInterface } from "../Todo";
 
-interface Props {
+type Props = {
   children?: React.ReactNode;
   id: ListItemInterface["id"];
   completed: ListItemInterface["completed"];
   currentTab: CurrentTabInterface;
   doneTask: UseTodoInterface["doneTask"];
   deleteTask: UseTodoInterface["deleteTask"];
-}
+};
 
 export function ListItem({
   id,
@@ -26,7 +26,6 @@ export function ListItem({
   children,
   currentTab,
   completed,
-  ...other
 }: Props) {
   const [checked, setChecked] = React.useState<boolean>(completed);
   const [index, setIndex] = React.useState<CurrentTabInterface>("todos");
@@ -54,7 +53,6 @@ export function ListItem({
       hidden={currentTab !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
     >
       {currentTab === index && (
         <Box
